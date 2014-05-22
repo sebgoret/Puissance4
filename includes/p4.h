@@ -12,8 +12,9 @@
 
 #ifndef P4_H
 
-# define P4_h
+# define P4_H
 # include <libft.h>
+# include <list.h>
 
 # define RED	ft_putstr("\033[0;31m◉\033[0;m")
 # define YELLOW ft_putstr("\033[0;33m◉\033[0;m")

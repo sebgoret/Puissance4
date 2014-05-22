@@ -19,7 +19,7 @@ int		ft_exit(int flag)
 	{
 		ft_putendl_fd("Invalid parameter", 2);
 		ft_putendl_fd("for a printable full screen game:", 2);
-		ft_putendl_fd("6 <= height <= 78, 7 <= width <= 90", 2);
+		ft_putendl_fd("6 <= height <= 60, 7 <= width <= 70", 2);
 	}
 	else
 		ft_putendl_fd("Usage : ./puissance4 height width", 2);
@@ -38,7 +38,7 @@ int		main(int ac, char **av)
 	{
 		h = ft_atoi(av[1]);
 		w = ft_atoi(av[2]);
-		if (h < 6 || h > 78 || w < 7 || w > 90)
+		if (h < 6 || h > 60 || w < 7 || w > 70)
 			return (ft_exit(1));
 		p = ft_create_p4(h, w);
 		ft_replay(p, 0);

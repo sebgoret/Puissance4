@@ -14,9 +14,9 @@ NAME = puissance4
 
 FLAGS = -Wall -Wextra -Werror
 
-BENJ_FLAGS = $(FLAGS) -ansi -pedantic -std=c89
+BENJ_FLAGS = $(FLAGS) -g0 -std=c89
 
-CC = gcc $(BENJ_FLAGS)
+CC = clang $(BENJ_FLAGS)
 
 LIBFT = -L$(DLIB) -lft
 
