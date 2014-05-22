@@ -12,11 +12,9 @@
 
 NAME = puissance4
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=c89
 
-BENJ_FLAGS = $(FLAGS) -g0 -std=c89
-
-CC = clang $(BENJ_FLAGS)
+CC = clang $(CFLAGS)
 
 LIBFT = -L$(DLIB) -lft
 
