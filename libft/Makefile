@@ -10,6 +10,8 @@
 #                                                                              #
 #******************************************************************************#
 
+.PHONY: all clean fclean re
+
 NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror
@@ -120,7 +122,7 @@ SRC =	ft_atoi.c			\
 		ft_destroy_split.c	\
 		ft_fatal_error.c	\
 		ft_count_tab.c		\
-		ft_get_next_line.c
+		ft_get_next_line.c	\
 
 OBJ = $(patsubst %.c, $(DOBJ)%.o, $(SRC))
 
@@ -152,5 +154,3 @@ fclean: clean
 	@echo "\033[0;0m\c"
 
 re: fclean all
-
-.PHONY: all clean fclean re

@@ -10,6 +10,8 @@
 #                                                                              #
 #******************************************************************************#
 
+.PHONY: all libft libclean clean fclean re
+
 NAME = puissance4
 
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c89
@@ -86,5 +88,3 @@ libclean:
 	@make -C $(DLIB) fclean
 
 re: fclean all
-
-.PHONY: all libft libclean clean fclean re
