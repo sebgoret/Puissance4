@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/08 13:02:26 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/03/09 18:27:38 by sebgoret         ###   ########.fr       */
+/*   Updated: 2014/06/20 19:22:46 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int		ft_exit(int flag)
 	if (flag)
 	{
 		ft_putendl_fd("Invalid parameter", 2);
-		ft_putendl_fd("for a printable full screen game:", 2);
-		ft_putendl_fd("6 <= height <= 60, 7 <= width <= 70", 2);
+		ft_putendl_fd("Don't exceed 18 x 21:", 2);
 	}
 	else
 		ft_putendl_fd("Usage : ./puissance4 height width", 2);
@@ -38,7 +37,7 @@ int		main(int ac, char **av)
 	{
 		h = ft_atoi(av[1]);
 		w = ft_atoi(av[2]);
-		if (h < 6 || h > 60 || w < 7 || w > 70)
+		if (h < 6 || h > 18 || w < 7 || w > 21)
 			return (ft_exit(1));
 		p = ft_create_p4(h, w);
 		ft_replay(p, 0);
