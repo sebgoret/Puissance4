@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/22 23:59:13 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/02/14 12:27:31 by sebgoret         ###   ########.fr       */
+/*   Updated: 2014/06/20 19:15:51 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char		*ft_return_char(int neg, int size, int n)
 	int		i;
 	int		a;
 
-	nbr = ft_strnew(size + neg);
+	nbr = ft_strnew(size + neg + 1);
 	i = 0;
 	a = 1;
 	while (size--)
@@ -27,11 +27,11 @@ static char		*ft_return_char(int neg, int size, int n)
 		nbr[i++] = '-';
 	while (a >= 1)
 	{
-		nbr[i++] = ((n / a) + '0');
+		nbr[i] = ((n / a) + '0');
+		i++;
 		n %= a;
 		a /= 10;
 	}
-	nbr[i] = '\0';
 	return (nbr);
 }
 

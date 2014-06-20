@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/15 15:32:27 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/01/22 23:44:33 by sebgoret         ###   ########.fr       */
+/*   Updated: 2014/06/20 19:16:17 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t		ft_strlen(char const *s)
 {
-	if (!(s && *s))
+	if (!s || !*s)
 		return (0);
 	return (1 + ft_strlen(++s));
 }

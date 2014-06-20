@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/15 18:18:07 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/04/26 09:23:55 by sebgoret         ###   ########.fr       */
+/*   Updated: 2014/06/20 18:05:23 by niccheva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ void		ft_destroy_split(char **split);
 void		ft_fatal_error(char *msg, int status);
 int			ft_count_tab(char **tab);
 char		*ft_epur_str(char *str);
+int			ft_error(char *cmd, char *error);
+int			ft_syscall_error(char *syscall);
 
 #endif

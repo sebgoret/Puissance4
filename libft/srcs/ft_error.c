@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fatal_error.c                                   :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/17 17:56:38 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/05/18 15:55:00 by sebgoret         ###   ########.fr       */
+/*   Created: 2014/05/29 22:01:43 by sebgoret          #+#    #+#             */
+/*   Updated: 2014/05/29 22:04:10 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <libft.h>
 
-void	ft_fatal_error(char *msg, int status)
+int			ft_error(char *cmd, char *error)
 {
-	ft_putendl_fd(msg, 2);
-	_exit(status);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(error, 2);
+	return (-1);
 }

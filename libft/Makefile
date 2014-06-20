@@ -6,19 +6,17 @@
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/15 18:12:53 by sebgoret          #+#    #+#              #
-#    Updated: 2014/04/26 13:10:16 by sebgoret         ###   ########.fr        #
+#    Updated: 2014/06/20 19:16:37 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
-
-.PHONY: all clean fclean re
 
 NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror
 
-BENJ_FLAGS = $(FLAGS) -ansi -pedantic -std=c89 -g
+CFLAGS = $(FLAGS) -ansi -pedantic -std=c89 -g
 
-CC = clang $(BENJ_FLAGS)
+CC = clang $(CFLAGS)
 
 DINC = includes/
 DSRC = srcs/
@@ -120,9 +118,11 @@ SRC =	ft_atoi.c			\
 		ft_putbtr_sufix.c	\
 							\
 		ft_destroy_split.c	\
+		ft_error.c			\
+		ft_syscall_error.c	\
 		ft_fatal_error.c	\
 		ft_count_tab.c		\
-		ft_get_next_line.c	\
+		ft_get_next_line.c
 
 OBJ = $(patsubst %.c, $(DOBJ)%.o, $(SRC))
 
@@ -154,3 +154,5 @@ fclean: clean
 	@echo "\033[0;0m\c"
 
 re: fclean all
+
+.PHONY: all clean fclean re

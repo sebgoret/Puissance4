@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fatal_error.c                                   :+:      :+:    :+:   */
+/*   ft_syscall_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/17 17:56:38 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/05/18 15:55:00 by sebgoret         ###   ########.fr       */
+/*   Created: 2014/05/29 22:01:21 by sebgoret          #+#    #+#             */
+/*   Updated: 2014/05/29 22:03:39 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <libft.h>
 
-void	ft_fatal_error(char *msg, int status)
+int			ft_syscall_error(char *syscall)
 {
-	ft_putendl_fd(msg, 2);
-	_exit(status);
+	ft_putstr_fd("Something bad happends with ", 2);
+	ft_putstr_fd(syscall, 2);
+	ft_putendl_fd("().", 2);
+	return (-1);
 }
