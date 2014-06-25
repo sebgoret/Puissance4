@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/16 11:35:49 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/02/14 12:32:59 by sebgoret         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:32:45 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				ft_putnbr(int n)
 	{
 		write(1, "-", 1);
 		ret++;
-		n -= n;
+		n = -n;
 	}
 	ft_putnbr_rec(n);
 	a = 1;
