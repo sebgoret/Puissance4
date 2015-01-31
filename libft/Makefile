@@ -130,25 +130,24 @@ CSRC =	ft_atoi.c			\
 		ft_syscall_error.c	\
 		ft_fatal_error.c	\
 		ft_count_tab.c		\
-		ft_get_next_line.c	\
-							\
-		ft_bzero.c			\
-		ft_isalnum.c		\
-		ft_isalpha.c		\
-		ft_isascii.c		\
-		ft_isdigit.c		\
-		ft_isprint.c		\
-		ft_memset.c			\
-		ft_strlen.c			\
-		ft_tolower.c		\
-		ft_toupper.c		\
-		ft_strcat.c			\
-		ft_memcpy.c			\
-		ft_strdup.c
+		ft_get_next_line.c
 
-SSRC =	ft_puts.s			\
+SSRC =	ft_bzero.s			\
+		ft_cat.s			\
+		ft_isalnum.s		\
+		ft_isalpha.s		\
+		ft_isascii.s		\
+		ft_isdigit.s		\
+		ft_isprint.s		\
+		ft_memcpy.s			\
+		ft_memset.s			\
+		ft_puts.s			\
 		ft_puts_fd.s		\
-		ft_cat.s
+		ft_strcat.s			\
+		ft_strdup.s			\
+		ft_strlen.s			\
+		ft_tolower.s		\
+		ft_toupper.s
 
 #PATHSUB RULES
 
