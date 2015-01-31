@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/09 17:27:04 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/03/09 20:03:53 by sebgoret         ###   ########.fr       */
+/*   Updated: 2015/01/31 12:57:40 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ t_coup	*ft_try_to_place(t_p4 **p, char player)
 	ft_put_player(player);
 	ft_putstr("  please enter column number");
 	ft_bzero(buf, (READ_ENTRY + 1));
-	ret = read(0, buf, READ_ENTRY);
+	if ((ret = read(0, buf, READ_ENTRY)) < 0)
+		ft_fatal_error("read() failed.", -1);
+	else if (ret == 0)
+		return (ft_try_to_place(p, player));
 	x = ft_atoi(buf);
 	if (x > 0 && x <= (*p)->w && (*p)->map[0][(x - 1)] == ' ')
 	{

@@ -6,11 +6,13 @@
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/23 11:32:48 by sebgoret          #+#    #+#              #
-#    Updated: 2015/01/30 18:35:27 by sebgoret         ###   ########.fr        #
+#    Updated: 2015/01/31 13:12:38 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 .PHONY: all clean fclean re
+
+.SUFFIXES:
 
 NAME = libft.a
 
@@ -133,21 +135,21 @@ CSRC =	ft_atoi.c			\
 		ft_get_next_line.c
 
 SSRC =	ft_bzero.s			\
-		ft_cat.s			\
 		ft_isalnum.s		\
 		ft_isalpha.s		\
 		ft_isascii.s		\
 		ft_isdigit.s		\
 		ft_isprint.s		\
-		ft_memcpy.s			\
 		ft_memset.s			\
 		ft_puts.s			\
 		ft_puts_fd.s		\
-		ft_strcat.s			\
-		ft_strdup.s			\
 		ft_strlen.s			\
 		ft_tolower.s		\
-		ft_toupper.s
+		ft_toupper.s		\
+		ft_strcat.s			\
+		ft_memcpy.s			\
+		ft_strdup.s			\
+		ft_cat.s
 
 #PATHSUB RULES
 

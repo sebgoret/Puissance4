@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/09 11:54:33 by sebgoret          #+#    #+#             */
-/*   Updated: 2014/03/09 21:01:17 by sebgoret         ###   ########.fr       */
+/*   Updated: 2015/01/31 12:59:59 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		ft_ask_to_play(void)
 
 	ft_putstr("Do you want to play against human or IA?(h, i)");
 	ft_bzero(buf, (READ_ENTRY + 1));
-	ret = read(0, buf, READ_ENTRY);
+	if ((ret = read(0, buf, READ_ENTRY)) < 1)
+		return (-1);
 	if (ft_strcmp(buf, "h\n") && ft_strcmp(buf, "i\n"))
 	{
 		ft_putendl("\nbad entry, try again\n");
@@ -39,7 +40,9 @@ void	ft_start_game(t_p4 *p)
 
 	player = ft_random_player();
 	flag = ft_ask_to_play();
-	if (flag)
+	if (flag == -1)
+		ft_fatal_error("read() failed.", -1);
+	else if (flag)
 		ft_pvp(&p, player);
 	else
 		ft_IA(&p, player);
@@ -55,7 +58,8 @@ void	ft_replay(t_p4 *p, int flag)
 	{
 		ft_putstr("Do you want to replay?(yes, no)");
 		ft_bzero(buf, (READ_ENTRY + 1));
-		ret = read(0, buf, READ_ENTRY);
+		if ((ret = read(0, buf, READ_ENTRY)) < 1)
+			ft_fatal_error("the game was quit.", 0);
 		if (ft_strequ(buf, "yes\n"))
 		{
 			ft_reset_p4(p);
