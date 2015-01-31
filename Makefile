@@ -6,7 +6,7 @@
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/16 10:52:14 by sebgoret          #+#    #+#              #
-#    Updated: 2015/01/31 21:55:49 by sebgoret         ###   ########.fr        #
+#    Updated: 2015/01/31 21:57:18 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 .PHONY: all clean fclean re clean_libft fclean_libft re_libft
@@ -95,8 +95,8 @@ re_libft:
 
 $(DOBJ)%.o: $(DSRC)%.c
 	@$(MKD) $(DOBJ)
-	@$(CC) -o $@ -c $< -I $(DINC) -I $(DLIB)$(DINC) $(LIBFT)
-	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) -I $(DLIB)$(DINC) $(RED)$(LIBFT)$(WHITE)"
+	@$(CC) -o $@ -c $< -I $(DINC) -I $(DLIB)$(DINC)
+	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) -I $(DLIB)$(DINC)$(WHITE)"
 
 $(NAME): $(DLIB)libft.a $(OBJ)
 	@echo "$(WHITE)Creation de l'executable :"
