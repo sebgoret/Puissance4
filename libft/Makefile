@@ -5,57 +5,62 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/01/15 18:12:53 by sebgoret          #+#    #+#              #
-#    Updated: 2014/06/20 19:16:37 by sebgoret         ###   ########.fr        #
+#    Created: 2015/01/23 11:32:48 by sebgoret          #+#    #+#              #
+#    Updated: 2015/01/30 18:35:27 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
+.PHONY: all clean fclean re
+
 NAME = libft.a
 
+#FLAGS
+
 FLAGS = -Wall -Wextra -Werror
+CFLAGS = $(FLAGS) -pedantic -std=c89
 
-CFLAGS = $(FLAGS) -ansi -pedantic -std=c89 -g
+DEBUG = -g
+SPEED = -g0 -O3
 
-CC = clang $(CFLAGS)
+#COMPILE
 
-DINC = includes/
+ifeq ($(check), 1)
+	CC = gcc $(CFLAGS) $(DEBUG)
+else
+	CC = gcc $(CFLAGS) $(SPEED)
+endif
+
+CCASM = nasm -f macho64 -g
+
+#FOLDERS
+
 DSRC = srcs/
 DOBJ = objs/
+DINC = includes/
 
-SRC =	ft_atoi.c			\
+#SOURCES
+
+CSRC =	ft_atoi.c			\
 		ft_itoa.c			\
-		ft_tolower.c		\
-		ft_toupper.c		\
-							\
-		ft_isalnum.c		\
-		ft_isalpha.c		\
-		ft_isascii.c		\
-		ft_isdigit.c		\
-		ft_isprint.c		\
 							\
 		ft_memalloc.c		\
-		ft_memset.c			\
 		ft_memdel.c			\
-		ft_memcpy.c			\
 		ft_memmove.c		\
 		ft_memccpy.c		\
 		ft_memchr.c			\
 		ft_memcmp.c			\
 							\
 		ft_strnew.c			\
-		ft_bzero.c			\
 		ft_epur_str.c		\
 		ft_strtrim.c		\
 		ft_strclr.c			\
 		ft_strdel.c			\
-		ft_strdup.c			\
 		ft_strcpy.c			\
 		ft_strncpy.c		\
 		ft_strchr.c			\
 		ft_strrchr.c		\
 		ft_strstr.c			\
 		ft_strnstr.c		\
-		ft_strcat.c			\
 		ft_strncat.c		\
 		ft_strlcat.c		\
 		ft_striter.c		\
@@ -83,11 +88,14 @@ SRC =	ft_atoi.c			\
 		ft_putnbr_fd.c		\
 							\
 		ft_lstnew.c			\
+		ft_lstadd.c			\
 		ft_lstadd_head.c	\
 		ft_lstadd_tail.c	\
 		ft_lstdelone.c		\
 		ft_lstdel.c			\
 		ft_putlst.c			\
+		ft_lstmap.c			\
+		ft_lstiter.c		\
 							\
 		ft_cirnew.c			\
 		ft_ciradd_head.c	\
@@ -122,37 +130,73 @@ SRC =	ft_atoi.c			\
 		ft_syscall_error.c	\
 		ft_fatal_error.c	\
 		ft_count_tab.c		\
-		ft_get_next_line.c
+		ft_get_next_line.c	\
+							\
+		ft_bzero.c			\
+		ft_isalnum.c		\
+		ft_isalpha.c		\
+		ft_isascii.c		\
+		ft_isdigit.c		\
+		ft_isprint.c		\
+		ft_memset.c			\
+		ft_strlen.c			\
+		ft_tolower.c		\
+		ft_toupper.c		\
+		ft_strcat.c			\
+		ft_memcpy.c			\
+		ft_strdup.c
 
-OBJ = $(patsubst %.c, $(DOBJ)%.o, $(SRC))
+SSRC =	ft_puts.s			\
+		ft_puts_fd.s		\
+		ft_cat.s
+
+#PATHSUB RULES
+
+OBJ = $(patsubst %.s, $(DOBJ)%.o, $(SSRC))
+OBJ2 = $(patsubst %.c, $(DOBJ)%.o, $(CSRC))
+
+#DEFAULT SHELL COMMAND
 
 RMF = /bin/rm -f
 RMD = /bin/rm -Rf
 MKD = /bin/mkdir -p
 
+#COLOR SHORTCUTS
+
+PURPLE = \033[38;5;54m
+YELLOW = \033[33m
+GREEN = \033[32m
+RED = \033[0;31m
+WHITE = \033[0;0m
+
 all: $(NAME)
+
+$(DOBJ)%.o: $(DSRC)%.s
+	@$(MKD) $(DOBJ)
+	@$(CCASM) -o $@ $<
+	@echo "$(PURPLE)$(CCASM)$(GREEN) -o $@ -$^ $(WHITE)"
 
 $(DOBJ)%.o: $(DSRC)%.c
 	@$(MKD) $(DOBJ)
-	@echo "\033[0;32m\c"
-	$(CC) -o $@ -c $< -I $(DINC)
+	@$(CC) -o $@ -c $< -I $(DINC)
+	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) $(WHITE)"
 
-$(NAME): $(OBJ)
-	@echo "\033[0;0mCreation de la libft:\033[0;32m"
-	ar rcs $(NAME) $(OBJ)
-	@echo "\033[0;0m\c"
+$(NAME): $(OBJ) $(OBJ2)
+	@echo "$(WHITE)function library generation:"
+	@ar rcs $(NAME) $(OBJ) $(OBJ2)
+	@echo "$(PURPLE)ar rcs $(GREEN)$(NAME) $(YELLOW)$(OBJ) $(OBJ2)$(WHITE)"
+	@ranlib $(NAME)
+	@echo "$(PURPLE)ranlib $(GREEN)$(NAME)\033[0m"
 
 clean:
-	@echo "\033[0;31m\c"
-	$(RMF) $(OBJ)
-	@echo "\033[0;0m\c"
+	@echo "$(RED)\c"
+	$(RMF) $(OBJ) $(OBJ2)
+	@echo "$(WHITE)\c"
 	@$(RMD) $(DOBJ)
 
 fclean: clean
-	@echo "\033[0;31m\c"
+	@echo "$(RED)\c"
 	$(RMF) $(NAME)
-	@echo "\033[0;0m\c"
+	@echo "$(WHITE)\c"
 
 re: fclean all
-
-.PHONY: all clean fclean re
