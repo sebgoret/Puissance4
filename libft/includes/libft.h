@@ -6,7 +6,7 @@
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/15 18:18:07 by sebgoret          #+#    #+#             */
-/*   Updated: 2015/01/20 16:36:23 by sebgoret         ###   ########.fr       */
+/*   Updated: 2015/01/31 20:53:04 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 
 # include <string.h>
 
-int			ft_atoi(char const *nbr);
-void		ft_bzero(void *s, size_t n);
+/*
+** CHECKS
+*/
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
 int			ft_isprint(int c);
-char		*ft_itoa(int n);
+int			ft_isupper(int c);
+int			ft_islower(int c);
+int			ft_min(int a, int b);
+int			ft_max(int a, int b);
+
+/*
+** MEMORY
+*/
+void		ft_bzero(void *s, size_t n);
 void		*ft_memalloc(size_t size);
 void		*ft_memccpy(void *dst, void const *src, int c, size_t n);
 void		*ft_memchr(void const *s, int c, size_t n);
@@ -31,14 +40,10 @@ void		*ft_memcpy(void *dst, void const *src, size_t n);
 void		ft_memdel(void **ap);
 void		*ft_memmove(void *dst, void const *src, size_t n);
 void		*ft_memset(void *s, int c, size_t n);
-int			ft_putchar(char c);
-int			ft_putchar_fd(char c, int fd);
-int			ft_putendl(char const *s);
-int			ft_putendl_fd(char const *s, int fd);
-int			ft_putnbr(int n);
-int			ft_putnbr_fd(int n, int fd);
-int			ft_putstr(char const *s);
-int			ft_putstr_fd(char const *s, int fd);
+
+/*
+** STRINGS
+*/
 char		*ft_strcat(char *s1, char const *s2);
 char		*ft_strchr(char const *s, int c);
 void		ft_strclr(char *s);
@@ -62,16 +67,41 @@ char		*ft_strnew(size_t size);
 char		*ft_strnstr(char const *s1, char const *s2, size_t n);
 char		*ft_strrchr(char const *s, int c);
 char		**ft_strsplit(char const *s, char c);
+void		ft_destroy_split(char **split);
 char		*ft_strstr(char const *s1, char const *s2);
 char		*ft_strsub(char const *s, unsigned int start, size_t len);
 char		*ft_strtrim(char const *s);
+char		*ft_epur_str(char *str);
+
+/*
+** OUTPUT
+*/
+int			ft_putchar(char c);
+int			ft_putchar_fd(char c, int fd);
+int			ft_putendl(char const *s);
+int			ft_putendl_fd(char const *s, int fd);
+int			ft_putnbr(int n);
+int			ft_putnbr_fd(int n, int fd);
+int			ft_putstr(char const *s);
+int			ft_putstr_fd(char const *s, int fd);
+int			ft_puts(char const *s);
+int			ft_puts_fd(char const *s, int fd);
+
+/*
+** CONVERT
+*/
+int			ft_atoi(char const *nbr);
+char		*ft_itoa(int n);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
-void		ft_destroy_split(char **split);
-void		ft_fatal_error(char *msg, int status);
-int			ft_count_tab(char **tab);
-char		*ft_epur_str(char *str);
+
+/*
+** TOOLS
+*/
 int			ft_error(char *cmd, char *error);
 int			ft_syscall_error(char *syscall);
+void		ft_fatal_error(char *msg, int status);
+int			ft_count_tab(char **tab);
+void		ft_cat(int fd);
 
 #endif

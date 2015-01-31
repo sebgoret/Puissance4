@@ -6,10 +6,12 @@
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/16 10:52:14 by sebgoret          #+#    #+#              #
-#    Updated: 2014/03/09 20:56:56 by sebgoret         ###   ########.fr        #
+#    Updated: 2015/01/31 21:55:49 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
-.PHONY: all libft libclean clean fclean re
+.PHONY: all clean fclean re clean_libft fclean_libft re_libft
+
+.SUFFIXES:
 
 NAME = puissance4
 
@@ -20,7 +22,7 @@ LIBFT = -L$(DLIB) -lft
 #FLAGS
 
 FLAGS = -Wall -Wextra -Werror
-CFLAGS = $(FLAGS) -pedantic
+CFLAGS = $(FLAGS) -ansi -pedantic -std=c89
 
 DEBUG = -g
 SPEED = -g0 -O3
@@ -71,6 +73,7 @@ MKD = /bin/mkdir -p
 #COLOR SHORTCUTS
 
 PURPLE = \033[38;5;54m
+BLUE = \033[34m
 YELLOW = \033[33m
 GREEN = \033[32m
 RED = \033[0;31m
@@ -92,13 +95,13 @@ re_libft:
 
 $(DOBJ)%.o: $(DSRC)%.c
 	@$(MKD) $(DOBJ)
-	@$(CC) -o $@ -c $< -I $(DINC) -I $(DLIB)$(DINC)
-	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) -I $(DLIB)$(DINC)$(WHITE)"
+	@$(CC) -o $@ -c $< -I $(DINC) -I $(DLIB)$(DINC) $(LIBFT)
+	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) -I $(DLIB)$(DINC) $(RED)$(LIBFT)$(WHITE)"
 
 $(NAME): $(DLIB)libft.a $(OBJ)
 	@echo "$(WHITE)Creation de l'executable :"
-	@$(CC) -o $(NAME) $(OBJ) $(LIBFT) $(LIBX)
-	@echo "$(PURPLE)$(CC) $(GREEN)$ -o $(NAME) $(YELLOW)$(OBJ) $(LIBFT) $(LIBX)$(WHITE)"
+	@$(CC) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo "$(PURPLE)$(CC) -o $(GREEN)$(NAME) $(BLUE)$(OBJ) $(RED)$(LIBFT)$(WHITE)"
 
 clean:
 	@echo "$(RED)\c"

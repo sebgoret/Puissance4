@@ -5,139 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 22:01:21 by sebgoret          #+#    #+#             */
-/*   Updated: 2015/01/30 20:31:14 by sebgoret         ###   ########.fr       */
+/*   Created: 2014/01/26 22:52:05 by sebgoret          #+#    #+#             */
+/*   Updated: 2015/01/22 17:59:20 by sebgoret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include "libft.h"
 #include "gnl.h"
 
-static int	ft_realloc(char **line, char *buf, int size, int *len)
+static char		*ft_realloc(char *str, int size)
 {
-	char	*temp;
+	char		*new_str;
 
-	if (*len == -1)
-	{
-		if ((*line = (char *)malloc(sizeof(char) * (size + 2))) == NULL)
-			return (1);
-		ft_memcpy(*line, buf, size);
-		*len = size;
-		(*line)[size] = '\0';
-		(*line)[size + 1] = '\0';
-	}
-	else
-	{
-		if ((temp = (char *)malloc(sizeof(char) * (*len + size + 2))) == NULL)
-			return (1);
-		ft_memcpy(temp, *line, *len);
-		ft_memcpy(temp + *len, buf, size);
-		*len = *len + size;
-		temp[*len] = '\0';
-		temp[*len + 1] = '\0';
-		free(*line);
-		*line = temp;
-	}
-	return (0);
+	if (size == 0)
+		return (str);
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + size + 1));
+	if (new_str == NULL)
+		return (NULL);
+	*new_str = '\0';
+	ft_strcat(new_str, str);
+	*str = '\0';
+	free(str);
+	return (new_str);
 }
 
-static void	ft_del_fd(t_info **list, t_info *cur)
+static int		ft_get_the_end(char *line, char *buff)
 {
-	t_info	*temp;
+	int			i;
 
-	ft_memdel((void **)&(cur->buf));
-	temp = *list;
-	if (*list == cur)
+	i = 0;
+	while (line[i] != '\0')
 	{
-		*list = (*list)->next;
-		free(cur);
-	}
-	else
-	{
-		while (temp->next != cur)
-			temp = temp->next;
-		temp->next = cur->next;
-		free(cur);
-	}
-}
-
-static int	ft_match_fd(t_info **list, t_info **cur, int const fd)
-{
-	t_info	*temp;
-
-	if (*list == NULL)
-	{
-		if ((*list = (t_info *)malloc(sizeof(t_info))) == NULL)
-			return (1);
-		if (((*list)->buf = (char *)malloc(BUFF_SIZE)) == NULL)
-			return (1);
-		(*list)->offset = 0;
-		(*list)->fd = fd;
-		(*list)->next = NULL;
-	}
-	temp = *list;
-	while (temp->fd != fd)
-	{
-		if (temp->next == NULL)
+		if (line[i] == '\n')
 		{
-			ft_match_fd(&(temp->next), cur, fd);
-			return (0);
+			line[i] = '\0';
+			*buff = '\0';
+			ft_strcat(buff, &line[i + 1]);
+			return (-1);
 		}
-		temp = temp->next;
+		i++;
 	}
-	*cur = temp;
+	*buff = '\0';
 	return (0);
 }
 
-static int	ft_read_buf(char **line, t_info *cur, int *len)
+int				ft_get_next_line(const int fd, char **line)
 {
-	char	*n;
+	int				i;
+	static char		buff[BUFF_SIZE + 1];
 
-	if ((n = ft_memchr(cur->start, (int)'\n', cur->offset)) == NULL)
-	{
-		if (ft_realloc(line, cur->start, cur->offset, len))
-			return (-1);
-		cur->offset = 0;
-		cur->start = NULL;
-	}
-	else
-	{
-		if (ft_realloc(line, cur->start, n - cur->start, len))
-			return (-1);
-		cur->offset = cur->offset - (n + 1 - cur->start);
-		cur->start = n + 1;
-		return (1);
-	}
-	return (0);
-}
-
-int			ft_get_next_line(int const fd, char **line)
-{
-	static t_info	*list;
-	t_info			*cur;
-	int				result;
-	int				len;
-	int				ret;
-
-	len = -1;
-	if (line == NULL || ft_match_fd(&list, &cur, fd))
+	if (fd < 0 || line == NULL)
 		return (-1);
-	if (cur->offset != 0)
+	*line = (char *)malloc(sizeof(char *) * (BUFF_SIZE + 1));
+	**line = '\0';
+	ft_strcat(*line, buff);
+	*buff = '\0';
+	i = BUFF_SIZE;
+	while (ft_get_the_end(*line, buff) != -1 && i == BUFF_SIZE)
 	{
-		if ((result = ft_read_buf(line, cur, &len)) != 0)
-			return (result);
+		i = read(fd, buff, BUFF_SIZE);
+		if (i == -1)
+			return (-1);
+		buff[i] = '\0';
+		*line = ft_realloc(*line, i);
+		ft_strcat(*line, buff);
 	}
-	while ((ret = read(fd, cur->buf, BUFF_SIZE)) > 0)
-	{
-		cur->offset = ret;
-		cur->start = cur->buf;
-		if ((result = ft_read_buf(line, cur, &len)) != 0)
-			return (result);
-	}
-	ft_del_fd(&list, cur);
-	if (ret == -1)
-		return (-1);
-	return (len != -1);
+	if (**line == '\0' && ft_strlen(buff) == 0 && i != BUFF_SIZE)
+		return (0);
+	return (1);
 }

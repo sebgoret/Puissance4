@@ -6,10 +6,9 @@
 #    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/23 11:32:48 by sebgoret          #+#    #+#              #
-#    Updated: 2015/01/31 13:12:38 by sebgoret         ###   ########.fr        #
+#    Updated: 2015/01/31 21:55:18 by sebgoret         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
-
 .PHONY: all clean fclean re
 
 .SUFFIXES:
@@ -19,7 +18,7 @@ NAME = libft.a
 #FLAGS
 
 FLAGS = -Wall -Wextra -Werror
-CFLAGS = $(FLAGS) -pedantic -std=c89
+CFLAGS = $(FLAGS) -ansi -pedantic -std=c89
 
 DEBUG = -g
 SPEED = -g0 -O3
@@ -80,10 +79,6 @@ CSRC =	ft_atoi.c			\
 		ft_strncmp.c		\
 		ft_strnequ.c		\
 							\
-		ft_putchar.c		\
-		ft_putchar_fd.c		\
-		ft_putstr.c			\
-		ft_putstr_fd.c		\
 		ft_putendl.c		\
 		ft_putendl_fd.c		\
 		ft_putnbr.c			\
@@ -135,20 +130,33 @@ CSRC =	ft_atoi.c			\
 		ft_get_next_line.c
 
 SSRC =	ft_bzero.s			\
+		ft_strlen.s			\
+		ft_strcat.s			\
+		ft_strdup.s			\
+							\
 		ft_isalnum.s		\
 		ft_isalpha.s		\
 		ft_isascii.s		\
 		ft_isdigit.s		\
 		ft_isprint.s		\
+		ft_isupper.s		\
+		ft_islower.s		\
+		ft_min.s			\
+		ft_max.s			\
+							\
 		ft_memset.s			\
+		ft_memcpy.s			\
+							\
+		ft_putchar.s		\
+		ft_putchar_fd.s		\
+		ft_putstr.s			\
+		ft_putstr_fd.s		\
 		ft_puts.s			\
 		ft_puts_fd.s		\
-		ft_strlen.s			\
+							\
 		ft_tolower.s		\
 		ft_toupper.s		\
-		ft_strcat.s			\
-		ft_memcpy.s			\
-		ft_strdup.s			\
+							\
 		ft_cat.s
 
 #PATHSUB RULES
@@ -165,6 +173,7 @@ MKD = /bin/mkdir -p
 #COLOR SHORTCUTS
 
 PURPLE = \033[38;5;54m
+BLUE = \033[34m
 YELLOW = \033[33m
 GREEN = \033[32m
 RED = \033[0;31m
@@ -175,19 +184,19 @@ all: $(NAME)
 $(DOBJ)%.o: $(DSRC)%.s
 	@$(MKD) $(DOBJ)
 	@$(CCASM) -o $@ $<
-	@echo "$(PURPLE)$(CCASM)$(GREEN) -o $@ -$^ $(WHITE)"
+	@echo "$(PURPLE)$(CCASM) -o $(GREEN)$@ $(BLUE)-$^$(WHITE)"
 
 $(DOBJ)%.o: $(DSRC)%.c
 	@$(MKD) $(DOBJ)
 	@$(CC) -o $@ -c $< -I $(DINC)
-	@echo "$(PURPLE)$(CC)$(GREEN) -o $@ -$^ $(YELLOW) -I $(DINC) $(WHITE)"
+	@echo "$(PURPLE)$(CC) -o $(GREEN)$@ $(BLUE)-$^ $(YELLOW)-I $(DINC)$(WHITE)"
 
 $(NAME): $(OBJ) $(OBJ2)
 	@echo "$(WHITE)function library generation:"
 	@ar rcs $(NAME) $(OBJ) $(OBJ2)
-	@echo "$(PURPLE)ar rcs $(GREEN)$(NAME) $(YELLOW)$(OBJ) $(OBJ2)$(WHITE)"
+	@echo "$(PURPLE)ar rcs $(GREEN)$(NAME) $(BLUE)$(OBJ) $(OBJ2)$(WHITE)"
 	@ranlib $(NAME)
-	@echo "$(PURPLE)ranlib $(GREEN)$(NAME)\033[0m"
+	@echo "$(PURPLE)ranlib $(GREEN)$(NAME)$(WHITE)"
 
 clean:
 	@echo "$(RED)\c"
