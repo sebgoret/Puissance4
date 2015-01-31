@@ -6,7 +6,7 @@
 ;    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2015/01/26 19:52:56 by sebgoret          #+#    #+#              ;
-;    Updated: 2015/01/30 18:16:22 by sebgoret         ###   ########.fr        ;
+;    Updated: 2015/01/31 14:29:34 by sebgoret         ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
@@ -15,7 +15,11 @@ global _ft_memcpy
 section .text
 
 _ft_memcpy:
-	mov			rcx, rdx		; move rdx (size) in rcx to use string rep
-	rep			movsb			; make coffee... (cpy rsi in rdi and set rax to rdi)
+	push		rdi				; save the pointer
+	mov			rcx, rdx
+	cld							; reset the direction flag
+	rep			movsb			; make coffee... (cpy rsi in rdi)
+	pop			rdi				; retrieve the pointer
 
-	ret							; return rax
+	mov			rax, rdi
+	ret

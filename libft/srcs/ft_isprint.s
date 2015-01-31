@@ -6,7 +6,7 @@
 ;    By: sebgoret <sebgoret@student.42.fr>          +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2015/01/23 15:08:29 by sebgoret          #+#    #+#              ;
-;    Updated: 2015/01/26 19:09:52 by sebgoret         ###   ########.fr        ;
+;    Updated: 2015/01/31 14:27:41 by sebgoret         ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
@@ -15,15 +15,15 @@ global _ft_isprint
 section .text
 
 _ft_isprint:
-	mov			rax, 0			; set rax to false (0)
+	xor			rax, rax
 
-	cmp			rdi, 32			; Compare the rdi value with the char 0
-	jl			exit			; if rdi < 32 jump to label exit
-	cmp			rdi, 126		; Compare the rdi value with the char 126
-	jg			exit			; if rdi > 126 jump to label exit
+	cmp			rdi, 32
+	jl			exit
+	cmp			rdi, 126
+	jg			exit
 
 true:
-	inc			rax				; set rax to true (1)
+	inc			rax
 
 exit:
-	ret							; return rax as true or false
+	ret
